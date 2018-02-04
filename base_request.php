@@ -2,14 +2,22 @@
 
 $baseurl = "https://webservices.amazon.co.jp/onca/xml";
 
+
 // リクエストのパラメータ作成
 $params = array();
 $params["Service"]          = "AWSECommerceService";
 $params["AWSAccessKeyId"]   = Access_Key_ID;
 $params["Version"]          = "2013-08-01";
-$params["Operation"]        = "ItemSearch";
-$params["SearchIndex"]      = $SearchIndex;
-$params["Keywords"]         = $Keywords;
+if (strncmp($Keywords, "isbn:", 5)) {
+	$params["Operation"]        = "ItemSearch";
+	$params["SearchIndex"]      = $SearchIndex;
+	$params["Keywords"]         = $Keywords;
+} else {
+	$params["Operation"]        = "ItemLookup";
+	$params["SearchIndex"]      = $SearchIndex;
+	$params["ItemId"]           = substr($Keywords, 5);
+	$params["IdType"]           = "ISBN";
+}
 $params["AssociateTag"]     = Associate_tag;
 $params["ResponseGroup"]    = "ItemAttributes,Offers, Images";
 $params["MinimumPrice"]     = "100";

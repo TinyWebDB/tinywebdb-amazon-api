@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^getvalue$ getvalue.php
+RewriteRule ^storeavalue$ storeavalue.php

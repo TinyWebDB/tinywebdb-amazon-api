@@ -1,71 +1,36 @@
-<!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-<title>Amazon APIを使って商品検索するサンプルコード</title>
-<meta charset="utf-8">
-<!-- Bootstrap読み込み（スタイリングのため） -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+     <style type="text/css">
+        body {margin-left: 5% ; margin-right: 5%; margin-top: 0.5in;
+             font-family: verdana, arial,"trebuchet ms", helvetica, sans-serif;}
+        ul {list-style: disc;}
+     </style>
+     <title>App Inventor Amazon API</title>
 </head>
+
 <body>
+<h2>App-Inventor-Compliant API: Amazon Books</h2>
+<table border=0>
+<tr valign="top">
+<td><image src="/images/customLogo.gif" width="200" hspace="10"></td>
+<td>
+<p>
+This web service is a proxy to Amazon's Books API and is to be used in conjunction with  <a
+href="http://appinventor.mit.edu">App Inventor
+for Android</a>. App Inventor apps can access this service using the TinyWebDB component and setting the ServiceURL to the URL of this site. The service returns a list of book data. You can explore how this API works by entering a tag of either search terms or an isbn in the form "isbn:xxxxxxxx" in the box below and clicking Get value :</p>
 
-<?php
+</td> </tr> 
+</table>
 
-// Amazon APIのアクセスキーとシークレットキーを入力
-define("Access_Key_ID", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
-define("Secret_Access_Key", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
 
-// アソシエイトIDの入力
-define("Associate_tag", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
+    <form action="/getvalue" method="post"
+          enctype=application/x-www-form-urlencoded>
+       <p>Tag:<input type="text" name="tag" /></p>
+       <input type="hidden" name="fmt" value="html">
+       <input type="submit" value="Get value">
+    </form>
 
-// 本のカテゴリから「東野圭吾」で検索
-ItemSearch("Books", "東野圭吾");
-
-//Set up the operation in the request
-function ItemSearch($SearchIndex, $Keywords){
-
-	// Amazon APIの仕様に沿ったリクエスト出力用のPHPスクリプト
-	include("base_request.php");
-
-	$amazon_xml = simplexml_load_string(file_get_contents($base_request));
-
-	foreach($amazon_xml->Items->Item as $item) {
-
-		$item_title = $item->ItemAttributes->Title; // 商品名
-		$item_author = $item->ItemAttributes->Author; // 著者
-		$item_publicationdate = $item->ItemAttributes->PublicationDate; // 発売日
-		$item_publisher = $item->ItemAttributes->Publisher; // 出版社
-		$item_url = $item->DetailPageURL; // 商品のURL
-		$item_image	 = $item->LargeImage->URL; // 商品の画像	?>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-4 col-xs-offset-4">
-					<div class="col-xs-6">
-						<!-- 商品の画像を表示 -->
-						<img class="img-responsive" src="<?php
-							if (isset($item_image)) {
-								echo $item_image; // サムネイル画像がある場合
-							} else {
-								echo "http://bit.ly/29Ikwlm"; // サムネイル画像がない場合
-							}
-						?>">
-					</div>
-					<div class="col-xs-6">
-						<ul>
-							<!-- 商品情報をリストで表示 -->
-							<li><a href="<?php echo $item_url; ?>"><?php echo $item_title; ?></a></li>
-							<li><?php echo $item_author; ?></li>
-							<li><?php echo $item_publicationdate; ?></li>
-							<li><?php echo $item_publisher; ?>）</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	<?php } // foreach end
-
-} ?>
-
-</body>
-</html>
+   
+    Returned as value to TinyWebDB component: <br/>
+   
+</body></html>
