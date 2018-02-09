@@ -1,5 +1,5 @@
-# tinywebdb-base64
-Use App Inventor Tinywebdb to get value = base64_encode(tag) .
+# tinywebdb-amazon-api
+Use App Inventor Tinywebdb to get value = -amazon_api(tag) .
 
 # tinywebdb-amazon-api web service
 
